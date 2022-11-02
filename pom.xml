@@ -29,7 +29,7 @@
      -->
     <packaging>pom</packaging>
     <name>baohulu-framework</name>
-    <description>宝葫芦。自定义的脚手架，集成大部分常用工具jar。</description>
+    <description>宝葫芦，自定义的脚手架。</description>
 
     <!--
         通过<properties>元素用户可以自定义一个或多个Maven属性，然后在POM的其他地方使用${属性名}的方式引用该属性，
@@ -48,12 +48,15 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
 
+        <baohulu.version>1.0-SNAPSHOT</baohulu.version>
         <junit.version>4.13.2</junit.version>
+        <slf4j-log4j12.version>1.7.30</slf4j-log4j12.version>
     </properties>
 
     <!-- maven多个模块(modules)聚合 -->
     <modules>
         <module>baohulu-basic</module>
+        <module>baohulu-common</module>
     </modules>
 
     <!--
@@ -66,6 +69,25 @@
     -->
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.baohulu.basic.framework</groupId>
+                <artifactId>baohulu-basic</artifactId>
+                <version>${baohulu.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baohulu.basic.framework</groupId>
+                <artifactId>baohulu-common</artifactId>
+                <version>${baohulu.version}</version>
+            </dependency>
+
+            <!-- 日志 -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j-log4j12.version}</version>
+                <optional>true</optional>
+            </dependency>
+
             <!-- 单元测试 -->
             <dependency>
                 <groupId>junit</groupId>
@@ -74,53 +96,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <!-- 构建 -->
-    <build>
-        <!-- 引入插件 -->
-        <plugins>
-            <!-- 该插件处理jdk版本 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.2</version>
-                <configuration>
-                    <!-- 一般而言，target与source是保持一致的，但是，有时候为了让程序能在其他版本的jdk中运行(对于低版本目标jdk，源代码中不能使用低版本jdk中不支持的语法)，会存在target不同于source的情况 -->
-                    <source>1.8</source> <!-- 源代码使用的JDK版本 -->
-                    <target>1.8</target> <!-- 需要生成的目标class文件的编译版本 -->
-                    <encoding>UTF-8</encoding><!-- 字符集编码 -->
-                    <verbose>true</verbose>
-                    <showWarnings>true</showWarnings>
-                    <fork>true</fork><!-- 要使compilerVersion标签生效，还需要将fork设为true，用于明确表示编译版本配置的可用 -->
-                    <executable><!-- path-to-javac --></executable><!-- 使用指定的javac命令，例如：<executable>${JAVA_1_4_HOME}/bin/javac</executable> -->
-                    <compilerVersion>1.3</compilerVersion><!-- 指定插件将使用的编译器的版本 -->
-                    <meminitial>128m</meminitial><!-- 编译器使用的初始内存 -->
-                    <maxmem>512m</maxmem><!-- 编译器使用的最大内存 -->
-                    <!--<compilerArgument>-verbose -bootclasspath ${java.home}\lib\rt.jar</compilerArgument>&lt;!&ndash; 这个选项用来传递编译器自身不包含但是却支持的参数选项 &ndash;&gt;-->
-                </configuration>
-            </plugin>
-
-            <!-- maven-deploy-plugin一般用于将项目发布到远程仓库 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-
-            <!-- 执行测试用例 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19</version>
-                <configuration>
-                    <!-- 忽略测试 -->
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

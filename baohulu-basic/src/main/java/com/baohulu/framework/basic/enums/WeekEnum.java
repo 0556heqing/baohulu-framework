@@ -11,6 +11,7 @@ import lombok.Getter;
 @Getter
 public enum WeekEnum {
 
+    // 星期枚举
     SUNDAY(1, "星期日"),
     MONDAY(2, "星期一"),
     TUESDAY(3, "星期二"),

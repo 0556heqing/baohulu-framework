@@ -11,6 +11,7 @@ import lombok.Getter;
 @Getter
 public enum MonthEnum {
 
+    // 月份枚举
     JANUARY(0, "一月"),
     FEBRUARY(1, "二月"),
     MARCH(2, "三月"),

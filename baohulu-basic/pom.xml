@@ -12,7 +12,7 @@
     <artifactId>baohulu-basic</artifactId>
 
     <properties>
-        <lombok.version>1.18.24</lombok.version>
+        <lombok.version>1.18.22</lombok.version>
     </properties>
 
     <dependencies>
