@@ -15,6 +15,10 @@
         <guava.version>31.1-jre</guava.version>
         <commons-lang.version>2.6</commons-lang.version>
         <commons-lang3.version>3.11</commons-lang3.version>
+        <commons-io.version>2.11.0</commons-io.version>
+        <zip4j.version>2.9.0</zip4j.version>
+        <zxing.version>3.3.3</zxing.version>
+        <thumbnailator.version>0.4.18</thumbnailator.version>
         <fastjson2.version>2.0.15</fastjson2.version>
         <mapstruct.version>1.5.2.Final</mapstruct.version>
         <httpclient.version>4.5</httpclient.version>
@@ -51,9 +55,43 @@
             <version>${commons-lang.version}</version>
         </dependency>
         <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
+        </dependency>
+        <!-- 打包/压缩/解压 -->
+        <dependency>
+            <groupId>net.lingala.zip4j</groupId>
+            <artifactId>zip4j</artifactId>
+            <version>${zip4j.version}</version>
+        </dependency>
+        <!-- 二维码 -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>${zxing.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>${zxing.version}</version>
+        </dependency>
+        <!-- 图片缩略图/水印等 -->
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>${thumbnailator.version}</version>
+        </dependency>
+        <!-- word -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.2.3</version>
         </dependency>
 
         <!-- 阿里json工具 -->
