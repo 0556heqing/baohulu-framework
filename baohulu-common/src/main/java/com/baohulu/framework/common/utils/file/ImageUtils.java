@@ -22,7 +22,7 @@ import java.util.Hashtable;
  * @date 2022/11/02 13:49
  */
 @Slf4j
-public class ImageUtil extends FileUtils {
+public class ImageUtils extends FileUtils {
 
     /**
      * 功能描述：判断文件是否为图片
@@ -61,7 +61,7 @@ public class ImageUtil extends FileUtils {
      * @param size 马赛克尺寸，即每个矩形的宽高
      */
     public static void markImageByMosaic(String sourceFilePath, String targetFilePath, int size) {
-        boolean isPic = ImageUtil.isPicture(sourceFilePath);
+        boolean isPic = ImageUtils.isPicture(sourceFilePath);
         if (!isPic) {
             log.error("原始文件不是图片");
             return;
@@ -197,7 +197,7 @@ public class ImageUtil extends FileUtils {
      * @return
      */
     public static void createVerification(String text, String targetFile) {
-        boolean isPic = ImageUtil.isPicture(targetFile);
+        boolean isPic = ImageUtils.isPicture(targetFile);
         if (!isPic) {
             log.error("保存文件必须是图片后缀");
             return;
@@ -272,7 +272,7 @@ public class ImageUtil extends FileUtils {
             //随机生成字符，因为只有画字符串的方法，没有画字符的方法，所以需要将字符变成字符串再画
             //验证码数组
             String codes = "23456789abcdefghjkmnopqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ";
-            int index = ImageTool.r.nextInt(codes.length());
+            int index = ImageTool.R.nextInt(codes.length());
             sb.append(codes.charAt(index));
         }
         return sb.toString();

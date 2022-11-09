@@ -1,24 +1,19 @@
 package com.baohulu.framework.common;
 
 import com.baohulu.framework.basic.consts.Network;
-import com.baohulu.framework.common.utils.file.FileUtils;
-import com.baohulu.framework.common.utils.file.ImageUtil;
-import com.baohulu.framework.common.utils.file.TextFile;
-import com.baohulu.framework.common.utils.file.ZipUtils;
+import com.baohulu.framework.common.utils.file.*;
 import com.google.zxing.NotFoundException;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
-import net.coobird.thumbnailator.name.Rename;
-import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.exception.ZipException;;
 import org.junit.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author heqing
@@ -124,23 +119,23 @@ public class TestFile {
     public void txt() {
         String filePath = "D:/workspace/test/temp.txt";
         String content = "hello world\n";
-        TextFile.writeFile(filePath, content, false);
+        TextFiles.writeFile(filePath, content, false);
 
         String content1 = "你好，贺小白\n";
-        TextFile.writeFile(filePath, content1, true);
+        TextFiles.writeFile(filePath, content1, true);
 
-        String read = TextFile.readFile(filePath);
+        String read = TextFiles.readFile(filePath);
         System.out.println(read);
     }
 
     @Test
     public void isPicture()  {
         String file1 = "D:/workspace/test/test.pdf";
-        boolean isPic1 = ImageUtil.isPicture(file1);
+        boolean isPic1 = ImageUtils.isPicture(file1);
         System.out.println("文件1 --> " + isPic1);
 
         String file2 = "D:/workspace/test/test.jpeg";
-        boolean isPic2 = ImageUtil.isPicture(file2);
+        boolean isPic2 = ImageUtils.isPicture(file2);
         System.out.println("文件2 --> " + isPic2);
     }
 
@@ -149,16 +144,16 @@ public class TestFile {
         String sourceFilePath = "D:/workspace/test/test.jpeg";
         String targetFilePath = "D:/workspace/test/temp.jpeg";
         int size = 30;
-        ImageUtil.markImageByMosaic(sourceFilePath, targetFilePath, size);
+        ImageUtils.markImageByMosaic(sourceFilePath, targetFilePath, size);
     }
 
     @Test
     public void getImage() throws FileNotFoundException {
-        String text = ImageUtil.getText();
+        String text = ImageUtils.getText();
         System.out.println("-->" + text);
         String targetFilePath = "D:/workspace/test/temp.jpg";
 
-        ImageUtil.createVerification(text, targetFilePath);
+        ImageUtils.createVerification(text, targetFilePath);
     }
 
     @Test
@@ -170,13 +165,13 @@ public class TestFile {
         // 生成二维码图片
 //        ImageUtil.qrCodeEncode(text, 500, 500, targetFilePath);
 
-        BufferedImage image = ImageUtil.qrCodeEncode(Network.UTF_8, text, 400 ,400);
-        ImageUtil.insertLogoImageToQRCode(image, logoFilePath, 100, 100);
-        image = ImageUtil.addUpFontToQRCode(image, "顶部文字");
-        image = ImageUtil.addBottomFontToQRCode(image, "底部文字,这是一段说明");
-        ImageUtil.writeFile(image, targetFilePath);
+        BufferedImage image = ImageUtils.qrCodeEncode(Network.UTF_8, text, 400 ,400);
+        ImageUtils.insertLogoImageToQRCode(image, logoFilePath, 100, 100);
+        image = ImageUtils.addUpFontToQRCode(image, "顶部文字");
+        image = ImageUtils.addBottomFontToQRCode(image, "底部文字,这是一段说明");
+        ImageUtils.writeFile(image, targetFilePath);
 
-        String content = ImageUtil.qrCodeDecode(targetFilePath);
+        String content = ImageUtils.qrCodeDecode(targetFilePath);
         System.out.println("Content: " + content);
     }
 

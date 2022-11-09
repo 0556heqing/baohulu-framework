@@ -1,4 +1,4 @@
-package com.baohulu.framework.common.utils.file.enums;
+package com.baohulu.framework.common.utils.file.image;
 
 /**
  * 图片合法格式

@@ -1,6 +1,7 @@
 package com.baohulu.framework.common.utils.file;
 
 import com.baohulu.framework.basic.consts.Network;
+import com.baohulu.framework.basic.consts.Separators;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -427,8 +428,21 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
      * @return String 文件名
      */
     public static String getPrefixName(String fileName) {
-        int splitIndex = fileName.lastIndexOf(".");
+        int splitIndex = fileName.lastIndexOf(Separators.POINT);
         return fileName.substring(0, splitIndex);
+    }
+
+    /**
+     * 获取文件名称[不含路径]
+     *
+     * @param fileName 文件名全名
+     * @return String 文件名
+     */
+    public static String getFileName(String fileName) {
+        int splitIndex = fileName.lastIndexOf(Separators.POINT);
+        String name = fileName.substring(0, splitIndex);
+        splitIndex = name.lastIndexOf("/");
+        return name.substring(splitIndex+1, name.length());
     }
 
     /**

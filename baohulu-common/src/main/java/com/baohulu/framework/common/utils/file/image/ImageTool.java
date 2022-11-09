@@ -35,7 +35,7 @@ public class ImageTool {
     /**
      * 获取随机数对象
      */
-    public final static Random r = new Random();
+    public final static Random R = new Random();
 
     /**
      * 获取随机的颜色
@@ -44,9 +44,9 @@ public class ImageTool {
      */
     public static Color randomColor() {
         // 这里为什么是225，因为当r，g，b都为255时，即为白色，为了好辨认，需要颜色深一点。
-        int r1= r.nextInt(225);
-        int g1 = r.nextInt(225);
-        int b1 = r.nextInt(225);
+        int r1= R.nextInt(225);
+        int g1 = R.nextInt(225);
+        int b1 = R.nextInt(225);
         return new Color(r1, g1, b1);
     }
 
@@ -59,12 +59,12 @@ public class ImageTool {
         //字体数组
         String[] fontNames = {"Georgia", "微软雅黑", "楷体_GB2312"};
         //获取随机的字体
-        int index = r.nextInt(fontNames.length);
+        int index = R.nextInt(fontNames.length);
         String fontName = fontNames[index];
         //随机获取字体的样式，0是无样式，1是加粗，2是斜体，3是加粗加斜体
-        int style = r.nextInt(4);
+        int style = R.nextInt(4);
         //随机获取字体的大小
-        int size = r.nextInt(12) + 36;
+        int size = R.nextInt(12) + 36;
         //返回一个随机的字体
         return new Font(fontName, style, size);
     }
@@ -80,7 +80,7 @@ public class ImageTool {
         //获取画笔
         Graphics2D g = (Graphics2D) image.getGraphics();
         //设置背景色随机
-        g.setColor(new Color(255, 255, r.nextInt(245) + 10));
+        g.setColor(new Color(255, 255, R.nextInt(245) + 10));
         g.fillRect(0, 0, WEIGHT, HEIGHT);
         return image;
     }
@@ -92,13 +92,13 @@ public class ImageTool {
      */
     public static void drawLine(BufferedImage image) {
         //定义干扰线的数量
-        int num = r.nextInt(10);
+        int num = R.nextInt(10);
         Graphics2D g = (Graphics2D) image.getGraphics();
         for (int i = 0; i < num; i++) {
-            int x1 = r.nextInt(WEIGHT);
-            int y1 = r.nextInt(HEIGHT);
-            int x2 = r.nextInt(WEIGHT);
-            int y2 = r.nextInt(HEIGHT);
+            int x1 = R.nextInt(WEIGHT);
+            int y1 = R.nextInt(HEIGHT);
+            int x2 = R.nextInt(WEIGHT);
+            int y2 = R.nextInt(HEIGHT);
             g.setColor(randomColor());
             g.drawLine(x1, y1, x2, y2);
         }

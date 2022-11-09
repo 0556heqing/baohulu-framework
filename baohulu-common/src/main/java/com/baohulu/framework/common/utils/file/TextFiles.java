@@ -12,7 +12,7 @@ import java.io.*;
  * @date 2022/11/02 14:25
  */
 @Slf4j
-public class TextFile extends FileUtils {
+public class TextFiles extends FileUtils {
 
     /**
      * 写入文件
