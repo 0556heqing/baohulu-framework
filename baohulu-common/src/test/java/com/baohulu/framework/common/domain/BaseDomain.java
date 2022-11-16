@@ -58,4 +58,21 @@ public class BaseDomain {
         addList.add(add4);
         return addList;
     }
+
+    public RecipeVo getFrameworkDeta() {
+        RecipeVo recipeVo = new RecipeVo();
+        recipeVo.setRemark("this is remark");
+        recipeVo.setRecipeCode("246512");
+        recipeVo.setRecipeTime("2022-05-01 07:15:00");
+        recipeVo.setPatientName("贺小白");
+        recipeVo.setPatientSex("男");
+        recipeVo.setAge("18");
+        recipeVo.setAgeType("岁");
+        recipeVo.setArchiveId("11111111");
+        recipeVo.setPayType("自费");
+        recipeVo.setAddress("安徽安庆市");
+        recipeVo.setDepartmentName("全科");
+        recipeVo.setDoctorDesc("测试");
+        return recipeVo;
+    }
 }

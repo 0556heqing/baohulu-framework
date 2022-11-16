@@ -303,7 +303,7 @@ public class ExcelUtils extends FileUtils {
     /**
      * 不创建对象的写
      *
-     * @param filePath  写入文件弟子
+     * @param filePath  写入文件地址
      * @param sheetName sheet名称
      * @param head      表头数据
      * @param data      表内容数据

@@ -1,22 +1,30 @@
 package com.baohulu.framework.common.utils.file;
 
 import com.baohulu.framework.basic.consts.Network;
+import com.baohulu.framework.common.utils.FreemarkerUtils;
 import com.baohulu.framework.common.utils.file.image.ImageTool;
 import com.baohulu.framework.common.utils.file.image.QrCodeLuminanceSource;
+import com.baohulu.framework.common.utils.file.pdf.document.DocumentVo;
+import com.baohulu.framework.common.utils.file.pdf.FtlTemplateBean;
 import com.google.zxing.*;
 import com.google.zxing.common.HybridBinarizer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.w3c.dom.Document;
+import org.xhtmlrenderer.swing.Java2DRenderer;
 
 import javax.imageio.ImageIO;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Hashtable;
+import java.util.Map;
 
 /**
- * 图片工具类
+ * 图片工具类（包含二维码、验证码图片、马赛克等）
  *
  * @author heqing
  * @date 2022/11/02 13:49
@@ -419,5 +427,29 @@ public class ImageUtils extends FileUtils {
         }
     }
 
+    /**
+     * 根据模板生成图片
+     * @param ftlTemplate 模板信息
+     * @param documentVo 填充数据
+     * @param outputFile 输出路径
+     */
+    public static void createImage(FtlTemplateBean ftlTemplate, DocumentVo documentVo, String outputFile) {
+        try {
+            Map<String, Object> variables = documentVo.fillDataMap();
+            String htmlContent = FreemarkerUtils.generate(ftlTemplate.getFtlTemplatePath(), ftlTemplate.getFtlTemplateName(), variables);
 
+            byte[] bytes = htmlContent.getBytes("UTF-8");
+            ByteArrayInputStream bin = new ByteArrayInputStream(bytes);
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(bin);
+            Java2DRenderer renderer = new Java2DRenderer(document, 1000, 1000);
+            BufferedImage img = renderer.getImage();
+
+            ImageIO.write(img, "png", new File(outputFile));
+            bin.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

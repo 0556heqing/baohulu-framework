@@ -1,7 +1,9 @@
 package com.baohulu.framework.common;
 
 import com.baohulu.framework.basic.consts.Network;
+import com.baohulu.framework.common.domain.BaseDomain;
 import com.baohulu.framework.common.utils.file.*;
+import com.baohulu.framework.common.utils.file.pdf.FtlTemplateBean;
 import com.google.zxing.NotFoundException;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
@@ -19,7 +21,7 @@ import java.util.*;
  * @author heqing
  * @date 2022/11/02 14:20
  */
-public class TestFile {
+public class TestFile extends BaseDomain {
 
     @Test
     public void copyFile() {
@@ -216,5 +218,19 @@ public class TestFile {
 //        Thumbnails.of(new File(logoFilePath).listFiles())
 //                .size(400, 400)
 //                .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+    }
+
+    @Test
+    public void createImage() {
+        String filePath="D:\\workspace\\test\\1.png";
+
+        String ftlTemplateAbsolutePath = this.getClass().getClassLoader().getResource("ftl").getFile();
+        String fontsAbsolutePath= this.getClass().getClassLoader().getResource("fonts").getFile();
+
+        FtlTemplateBean ftlTemplateBean = new FtlTemplateBean();
+        ftlTemplateBean.setFtlTemplatePath(ftlTemplateAbsolutePath);
+        ftlTemplateBean.setFontsPath(fontsAbsolutePath);
+        ftlTemplateBean.setFtlTemplateName("recipe.ftl");
+        ImageUtils.createImage(ftlTemplateBean, getFrameworkDeta(), filePath);
     }
 }

@@ -24,6 +24,14 @@ import java.util.List;
 @Slf4j
 public class FileUtils extends org.apache.commons.io.FileUtils {
 
+    protected static final String PPTX = "pptx";
+    protected static final String PPT = "ppt";
+    protected static final String DOCX = "docx";
+    protected static final String DOC = "doc";
+    protected static final String XLS = "xls";
+    protected static final String XLSX = "xlsx";
+    protected static final String TEXT = "txt";
+
     /**
      * 复制单个文件，如果目标文件存在，则不覆盖
      * @param srcFileName 待复制的文件名
@@ -578,4 +586,19 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         }
     }
 
+    /***
+     * 输入流中的内容转为数组
+     *
+     * @param inStream : 输入流
+     **/
+    public static byte[] readInputStream(InputStream inStream) throws Exception {
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len = 0;
+        while ((len = inStream.read(buffer)) != -1) {
+            outStream.write(buffer, 0, len);
+        }
+        inStream.close();
+        return outStream.toByteArray();
+    }
 }
