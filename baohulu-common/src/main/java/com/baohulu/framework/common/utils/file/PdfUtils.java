@@ -1,7 +1,7 @@
 package com.baohulu.framework.common.utils.file;
 
 import com.baohulu.framework.basic.enums.ReturnEnum;
-import com.baohulu.framework.basic.exception.AppException;
+import com.baohulu.framework.basic.exception.BusinessException;
 import com.baohulu.framework.common.utils.FreemarkerUtils;
 import com.baohulu.framework.common.utils.file.pdf.document.DocumentVo;
 import com.baohulu.framework.common.utils.file.pdf.FtlTemplateBean;
@@ -46,7 +46,7 @@ public class PdfUtils extends FileUtils {
     public static void wordToPdf(String sourcePath, String targetPath) {
         File inputWord = new File(sourcePath);
         if (!inputWord.exists()) {
-            throw new AppException(ReturnEnum.PARAM_ERROR, "word文档不存在");
+            throw new BusinessException(ReturnEnum.PARAM_ERROR, "word文档不存在");
         }
         File outputFile = new File(targetPath);
         try  {

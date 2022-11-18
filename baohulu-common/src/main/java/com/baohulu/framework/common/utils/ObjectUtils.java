@@ -2,7 +2,7 @@ package com.baohulu.framework.common.utils;
 
 import com.baohulu.framework.basic.consts.Network;
 import com.baohulu.framework.basic.consts.Operation;
-import com.baohulu.framework.basic.exception.SysException;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -16,8 +16,7 @@ import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -28,7 +27,38 @@ import java.util.function.Predicate;
  * @author heqing
  * @date 2022/10/18 19:36
  */
-public class BeanUtils {
+public class ObjectUtils {
+
+    /**
+     * 对象非空判断
+     */
+    @SuppressWarnings("rawtypes")
+    public static Boolean isNull(Object t) {
+        if (t == null) {
+            return true;
+        }
+        // String
+        if (t instanceof String) {
+            return StringUtils.isBlank((String) t);
+        }
+        // List
+        if (t instanceof List) {
+            return ((List) t).size() == 0;
+        }
+        // Map
+        if (t instanceof Map) {
+            return ((Map) t).size() == 0;
+        }
+        // Set
+        if (t instanceof Set) {
+            return ((Set) t).size() == 0;
+        }
+        // 数组
+        if (t instanceof Object[]) {
+            return ((Object[]) t).length == 0;
+        }
+        return false;
+    }
 
     /**
      * 自定义函数去重
@@ -74,7 +104,7 @@ public class BeanUtils {
      * @param object java对象
      * @return map
      */
-    public static Map<String, Object> beanToMap(Object object)  {
+    public static Map<String, Object> objectToMap(Object object)  {
         Map<String, Object> map = new HashMap<>(4);
         Field[] fields = object.getClass().getDeclaredFields();
         try {
@@ -96,7 +126,7 @@ public class BeanUtils {
      * @return 对象
      * @throws Exception
      */
-    public static <T> T mapToBean(Map map, Class<T> beanClass) {
+    public static <T> T mapToObject(Map map, Class<T> beanClass) {
         try {
             T object = beanClass.newInstance();
             Field[] fields = object.getClass().getDeclaredFields();
@@ -123,7 +153,7 @@ public class BeanUtils {
      * @param obj 对象
      * @return xml字符串
      */
-    public static String beanToXml(Object obj)  {
+    public static String objectToXml(Object obj)  {
         // 创建输出流
         StringWriter sw = new StringWriter();
         try {
@@ -152,7 +182,7 @@ public class BeanUtils {
      * @param clazz 对象类型
      * @return java对象
      */
-    public static <T> T xmlToBean(String xmlStr, Class<T> clazz) {
+    public static <T> T xmlToObject(String xmlStr, Class<T> clazz) {
         try {
             T obj = clazz.newInstance();
             JAXBContext context = JAXBContext.newInstance(clazz);

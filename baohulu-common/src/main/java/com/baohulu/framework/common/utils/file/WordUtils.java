@@ -1,7 +1,7 @@
 package com.baohulu.framework.common.utils.file;
 
 import com.baohulu.framework.basic.enums.ReturnEnum;
-import com.baohulu.framework.basic.exception.AppException;
+import com.baohulu.framework.basic.exception.BusinessException;
 import com.baohulu.framework.common.utils.StringUtils;
 import com.baohulu.framework.common.utils.file.word.ChartData;
 import com.baohulu.framework.common.utils.file.word.ImageData;
@@ -37,7 +37,7 @@ public class WordUtils extends FileUtils {
     public static List<String> readText(String filename) throws IOException {
         File source = new File(filename);
         if (!source.exists()) {
-            throw new AppException(ReturnEnum.PARAM_ERROR, "word文档不存在");
+            throw new BusinessException(ReturnEnum.PARAM_ERROR, "word文档不存在");
         }
 
         List<String> contentList = new LinkedList<>();
@@ -100,7 +100,7 @@ public class WordUtils extends FileUtils {
     public static List<List<Object>> readTable(String filename) throws IOException {
         File source = new File(filename);
         if (!source.exists()) {
-            throw new AppException(ReturnEnum.PARAM_ERROR, "word文档不存在");
+            throw new BusinessException(ReturnEnum.PARAM_ERROR, "word文档不存在");
         }
 
         List<List<Object>> contentList = new LinkedList<>();
@@ -185,11 +185,11 @@ public class WordUtils extends FileUtils {
      */
     public static void writeImage(XWPFDocument document, ImageData imageData) throws IOException, InvalidFormatException {
         if(imageData == null || StringUtils.isEmpty(imageData.getPath())) {
-            throw new AppException(ReturnEnum.PARAM_ERROR, "word文档图片数据错误");
+            throw new BusinessException(ReturnEnum.PARAM_ERROR, "word文档图片数据错误");
         }
         File source = new File(imageData.getPath());
         if (!source.exists()) {
-            throw new AppException(ReturnEnum.PARAM_ERROR, "word文档图片不存在");
+            throw new BusinessException(ReturnEnum.PARAM_ERROR, "word文档图片不存在");
         }
         if(imageData.getWidth() == null){
             imageData.setWidth(450);
@@ -258,7 +258,7 @@ public class WordUtils extends FileUtils {
     public static void writeChart(XWPFDocument document, ChartData chartData) throws IOException, InvalidFormatException {
         // 校验数据
         if(chartData == null || chartData.getValues() == null || chartData.getValues().isEmpty()) {
-            throw new AppException(ReturnEnum.PARAM_ERROR, "word文档图形数据错误");
+            throw new BusinessException(ReturnEnum.PARAM_ERROR, "word文档图形数据错误");
         }
 
         // 1、创建chart图表对象,抛出异常
@@ -355,7 +355,7 @@ public class WordUtils extends FileUtils {
                 // 9、绘制饼图
                 chart.plot(pieChart);
                 break;
-            default: throw new AppException(ReturnEnum.PARAM_ERROR, "暂不支持改类型的图形");
+            default: throw new BusinessException(ReturnEnum.PARAM_ERROR, "暂不支持改类型的图形");
         }
     }
 

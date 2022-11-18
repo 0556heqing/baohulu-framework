@@ -5,7 +5,8 @@ import com.baohulu.framework.common.mapstruct.PersonMapstructConverter;
 import com.baohulu.framework.common.mapstruct.domain.Address;
 import com.baohulu.framework.common.mapstruct.domain.PersonBO;
 import com.baohulu.framework.common.mapstruct.domain.PersonDTO;
-import com.baohulu.framework.common.utils.BeanUtils;
+import com.baohulu.framework.common.utils.AssertUtils;
+import com.baohulu.framework.common.utils.ObjectUtils;
 import com.baohulu.framework.common.utils.ListUtils;
 import org.junit.Test;
 
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
  * @author heqing
  * @date 2022/10/19 10:32
  */
-public class TestBean extends BaseDomain {
+public class TestObject extends BaseDomain {
 
     @Test
     public void testBean() {
@@ -36,7 +37,7 @@ public class TestBean extends BaseDomain {
     public void distinctByKey() {
         List<Address> addList = getAddList();
         System.out.println("过滤前 -->" + addList);
-        List<Address> newAddList = addList.stream().filter(BeanUtils.distinctByKey(d -> d.getProvince())).collect(Collectors.toList());
+        List<Address> newAddList = addList.stream().filter(ObjectUtils.distinctByKey(d -> d.getProvince())).collect(Collectors.toList());
         System.out.println("过滤后 -->" + newAddList);
     }
 
@@ -44,7 +45,7 @@ public class TestBean extends BaseDomain {
     @Test
     public void getProp() {
         PersonBO personBO = getPersonBO();
-        Address address = (Address) BeanUtils.getProp(personBO, "address");
+        Address address = (Address) ObjectUtils.getProp(personBO, "address");
         System.out.println("--> " + address);
     }
 
@@ -53,10 +54,10 @@ public class TestBean extends BaseDomain {
         PersonBO personBO = getPersonBO();
         System.out.println("转换前 --> " + personBO);
 
-        Map<String, Object> map = BeanUtils.beanToMap(personBO);
+        Map<String, Object> map = ObjectUtils.objectToMap(personBO);
         System.out.println("beanToMap --> " + map);
 
-        personBO = BeanUtils.mapToBean(map, PersonBO.class);
+        personBO = ObjectUtils.mapToObject(map, PersonBO.class);
         System.out.println("mapToBean --> " + personBO);
     }
 
@@ -65,11 +66,11 @@ public class TestBean extends BaseDomain {
         PersonBO personBO = getPersonBO();
         System.out.println("转换前 --> " + personBO);
 
-        String xml = BeanUtils.beanToXml(personBO);
+        String xml = ObjectUtils.objectToXml(personBO);
         System.out.println("beanToXml --> ");
         System.out.println(xml);
 
-        personBO = BeanUtils.xmlToBean(xml, PersonBO.class);
+        personBO = ObjectUtils.xmlToObject(xml, PersonBO.class);
         System.out.println("xmlToBean --> " + personBO);
     }
 
@@ -86,5 +87,11 @@ public class TestBean extends BaseDomain {
 
         List<String> union = ListUtils.union(l1, l2);
         System.out.println("union -> " + union);
+    }
+
+    @Test
+    public void testAssert() {
+        String str = "1";
+        AssertUtils.isNotNumeric(str, "不能为空，且必须为数字");
     }
 }

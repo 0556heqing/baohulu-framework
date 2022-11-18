@@ -1,7 +1,7 @@
 package com.baohulu.framework.common.utils.validate;
 
 import com.baohulu.framework.basic.enums.ReturnEnum;
-import com.baohulu.framework.basic.exception.AppException;
+import com.baohulu.framework.basic.exception.BusinessException;
 import com.baohulu.framework.common.utils.validate.annotation.StringValidation;
 import com.baohulu.framework.common.utils.validate.enums.RegexTypeEnum;
 import org.apache.commons.lang.math.NumberUtils;
@@ -33,7 +33,7 @@ public class StringAnnotation {
     public static void validate(Object object, String... fields) {
         if (object == null) {
             logger.warn(">>>入参对象为空!");
-            throw new AppException(ReturnEnum.PARAM_ERROR, "入参对象不能为空!");
+            throw new BusinessException(ReturnEnum.PARAM_ERROR, "入参对象不能为空!");
         }
         //校验指明字段
         validateFields(object, fields);
@@ -53,7 +53,7 @@ public class StringAnnotation {
             Boolean isStr = value instanceof String && StringUtils.isBlank(((String) value));
             if (value == null || isStr) {
                 logger.warn(">>>入参字段{}为空!", name);
-                throw new AppException(ReturnEnum.PARAM_ERROR, "入参字段[" + name + "]不能为空!");
+                throw new BusinessException(ReturnEnum.PARAM_ERROR, "入参字段[" + name + "]不能为空!");
             }
         }
     }
@@ -74,7 +74,7 @@ public class StringAnnotation {
             method = clazz.getMethod(methodName);
         } catch (Exception e) {
             logger.warn("getMethod failed", e);
-            throw new AppException(ReturnEnum.PARAM_ERROR, "参数字段错误");
+            throw new BusinessException(ReturnEnum.PARAM_ERROR, "参数字段错误");
         }
         return method;
     }
@@ -107,7 +107,7 @@ public class StringAnnotation {
         String string  = "class java.lang.String";
         if (!string.equals(field.getGenericType().toString())) {
             logger.error("类：{} 属性：{} 不是String类型，不应该使用该注解 ", object.getClass().getName(), field.getName());
-            throw new AppException(ReturnEnum.PARAM_ERROR, "参数字段错误");
+            throw new BusinessException(ReturnEnum.PARAM_ERROR, "参数字段错误");
         }
 
         // 获取属性值
@@ -141,7 +141,7 @@ public class StringAnnotation {
                 }
             }
             if(!isSuccess) {
-                throw new AppException(ReturnEnum.PARAM_ERROR, "参数字段("+fieldName+")错误");
+                throw new BusinessException(ReturnEnum.PARAM_ERROR, "参数字段("+fieldName+")错误");
             }
         }
     }

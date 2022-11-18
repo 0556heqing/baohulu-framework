@@ -1,6 +1,6 @@
 package com.baohulu.framework.common.utils.file.pdf.document;
 
-import com.baohulu.framework.common.utils.BeanUtils;
+import com.baohulu.framework.common.utils.ObjectUtils;
 
 import java.util.Map;
 
@@ -16,7 +16,7 @@ public abstract class AbstractDocumentVo implements DocumentVo {
     @Override
     public Map<String, Object> fillDataMap() {
         DocumentVo vo = this.getDocumentVo();
-        Map<String, Object> map = BeanUtils.beanToMap(vo);
+        Map<String, Object> map = ObjectUtils.objectToMap(vo);
         return map;
     }
 
