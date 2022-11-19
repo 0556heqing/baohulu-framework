@@ -13,6 +13,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -87,6 +88,49 @@ public class TestObject extends BaseDomain {
 
         List<String> union = ListUtils.union(l1, l2);
         System.out.println("union -> " + union);
+    }
+
+    @Test
+    public void arrayToList() {
+        String[] array = {"a","b"};
+        List<String> list = ListUtils.arrayToList(array);
+        System.out.println("arrayToList -> " + list);
+
+        list.add("c");
+        System.out.println("arrayToList -> " + list);
+
+        Integer[] array1 = {1, 2};
+        List<Integer> list1 = ListUtils.arrayToList(array1);
+        System.out.println("arrayToList -> " + list1);
+
+        list1.add(3);
+        System.out.println("arrayToList -> " + list1);
+    }
+
+    @Test
+    public void listToArray () {
+        List<String> list1 = Arrays.asList("a", "b", "c");
+        String[] array1 = ListUtils.listToArray(list1);
+        for(String a : array1) {
+            System.out.println("array1 -> " + a);
+        }
+
+
+        List<Integer> list2 = Arrays.asList(1, 2);
+        Integer[] array2 = ListUtils.listToArray(list2);
+        for(Integer a : array2) {
+            System.out.println("array2 -> " + a);
+        }
+    }
+
+    @Test
+    public void listToSet() {
+        List<String> list1 = Arrays.asList("a", "a", "c");
+        Set<String> set1 = ListUtils.listToSet(list1);
+        System.out.println("listToSet -> " + set1);
+
+        list1 = ListUtils.setToList(set1);
+        System.out.println("setToList -> " + list1);
     }
 
     @Test
